@@ -5,6 +5,7 @@ langchain-community>=0.0.13
 langchain-core>=0.1.10
 langchain-text-splitters>=0.0.1
 langchain-unstructured>=0.0.1
+langchain-deepseek>=0.0.1
 
 # OpenAI and API Dependencies
 openai>=1.3.0
