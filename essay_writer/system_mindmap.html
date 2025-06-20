@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay Writing System Mind Map</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .mermaid {
+            margin: 20px 0;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .section h2 {
+            color: #34495e;
+        }
+        .section p {
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Essay Writing System Architecture</h1>
+        
+        <div class="section">
+            <h2>System Overview</h2>
+            <div class="mermaid">
+                mindmap
+                    root((Essay Writing<br>System))
+                        (Core Components)
+                            [State Management]
+                            [Agent System]
+                            [Workflow Engine]
+                        (External Services)
+                            [OpenAI GPT]
+                            [Google Search API]
+                        (User Interface)
+                            [Streamlit App]
+                            [Interactive Controls]
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Agent System Architecture</h2>
+            <div class="mermaid">
+                graph TD
+                    A[Outline Agent] --> B[Research Agent]
+                    B --> C[Writer Agent]
+                    C --> D[Critique Agent]
+                    D --> E[Research Critique Agent]
+                    E --> F[Revision Agent]
+                    F -->|Continue| D
+                    F -->|End| G[Final Essay]
+                    
+                    style A fill:#f9f,stroke:#333,stroke-width:2px
+                    style B fill:#bbf,stroke:#333,stroke-width:2px
+                    style C fill:#bfb,stroke:#333,stroke-width:2px
+                    style D fill:#fbb,stroke:#333,stroke-width:2px
+                    style E fill:#bbf,stroke:#333,stroke-width:2px
+                    style F fill:#bfb,stroke:#333,stroke-width:2px
+                    style G fill:#ddd,stroke:#333,stroke-width:2px
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>State Management</h2>
+            <div class="mermaid">
+                classDiagram
+                    class AgentState {
+                        +messages: Sequence[BaseMessage]
+                        +topic: str
+                        +outline: str
+                        +research: str
+                        +essay: str
+                        +critique: str
+                        +iteration: int
+                        +max_iterations: int
+                        +word_count_limit: int
+                    }
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Agent Details</h2>
+            <div class="mermaid">
+                graph LR
+                    subgraph Outline Agent
+                        O1[Receives Topic] --> O2[Generates Outline]
+                    end
+                    
+                    subgraph Research Agent
+                        R1[Generates Queries] --> R2[Performs Search]
+                        R2 --> R3[Compiles Results]
+                    end
+                    
+                    subgraph Writer Agent
+                        W1[Uses Outline] --> W2[Uses Research]
+                        W2 --> W3[Generates Essay]
+                    end
+                    
+                    subgraph Critique Agent
+                        C1[Analyzes Essay] --> C2[Provides Feedback]
+                    end
+                    
+                    subgraph Research Critique Agent
+                        RC1[Analyzes Critique] --> RC2[Generates New Queries]
+                        RC2 --> RC3[Performs Additional Research]
+                    end
+                    
+                    subgraph Revision Agent
+                        RV1[Uses Critique] --> RV2[Uses New Research]
+                        RV2 --> RV3[Revises Essay]
+                    end
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Workflow Control</h2>
+            <div class="mermaid">
+                graph TD
+                    A[Start] --> B{Check Iterations}
+                    B -->|Max Reached| C[End]
+                    B -->|Continue| D{Check Word Count}
+                    D -->|Exceeded| C
+                    D -->|Within Limit| E[Continue Revision]
+                    E --> B
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true
+            }
+        });
+    </script>
+</body>
+</html> 
