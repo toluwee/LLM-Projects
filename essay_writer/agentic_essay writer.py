@@ -43,7 +43,6 @@ Utilize all the information below as needed:
 
 
 
-
 REFLECTION_PROMPT = """You are a teacher grading an essay submission. \
 Generate critique and recommendations for the user's submission. \
 Provide detailed recommendations, including requests for length, depth, style, etc."""
@@ -68,11 +67,15 @@ class Queries(BaseModel):
     queries: List[str]
 
 
-from tavily import TavilyClient
+# from tavily import TavilyClient
 import os
-tavily = TavilyClient(api_key=os.environ["TAVILY_API_KEY"])
+# tavily = TavilyClient(api_key=os.environ["TAVILY_API_KEY"])
 
-
+from langchain_google_community import GoogleSearchAPIWrapper
+search_tool = GoogleSearchAPIWrapper(
+        google_api_key=os.getenv("GOOGLE_API_KEY"),
+        google_cse_id=os.getenv("GOOGLE_CSE_ID")
+    )
 
 def plan_node(state: AgentState):
     messages = [
@@ -91,7 +94,7 @@ def research_plan_node(state: AgentState):
     ])
     content = state['content'] or []
     for q in queries.queries:
-        response = tavily.search(query=q, max_results=2)
+        response = search_tool.search(query=q, max_results=2)
         for r in response['results']:
             content.append(r['content'])
     return {"content": content}
@@ -133,7 +136,7 @@ def research_critique_node(state: AgentState):
     ])
     content = state['content'] or []
     for q in queries.queries:
-        response = tavily.search(query=q, max_results=2)
+        response = search_tool.search(query=q, max_results=2)
         for r in response['results']:
             content.append(r['content'])
     return {"content": content}
